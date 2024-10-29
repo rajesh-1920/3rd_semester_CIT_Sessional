@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh19
-// Date  :  29.10.2024
+// Date  :  30.10.2024
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -55,7 +55,7 @@ inline ll moddiv(ll A, ll B, ll M)
     return _normal(modmul(A, (binexpo(B, M - 2, M)), M), M);
 }
 //-----------------------------------------------------------------------------------------*/
-//----------------------------(definition section)-------------------------------------------
+//----------------------------(definition section)------------------------------------------
 #define f(i, a, b) for (ll i = a; i < b; i++)
 #define scv(v, n) f(i, 0, n) cin >> (v[i]);
 #define dbg(x) cout << #x << " = " << x << '\n'

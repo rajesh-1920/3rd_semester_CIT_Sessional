@@ -95,18 +95,16 @@ ll parent(ll a)
 }
 void _union(ll a, ll b, ll w)
 {
-    if (par[a] != b && par[b] != a)
+    ll pa = parent(a);
+    ll pb = parent(b);
+    if (sz[pa] < sz[pb])
+        swap(pa, pb);
+    if (pa != pb)
     {
-        ll pa = parent(a);
-        ll pb = parent(b);
-        if (sz[pa] < sz[pb])
-            swap(pa, pb);
-        if (pa != pb)
-        {
-            par[pb] = pa;
-            sz[pa] += sz[pb];
-            ans[a].ppb(b, w);
-        }
+        par[pb] = pa;
+        sz[pa] += sz[pb];
+        // ans[a].ppb(b, w);
+        cout << a << ' ' << b << ' ' << w << '\n';
     }
 }
 
@@ -126,16 +124,16 @@ void solve(void)
 
     for (auto it : st)
     {
-        //cout<<it.sc.fi<<' '<< it.sc.sc<<' '<< it.fi<<'\n';
+        // cout<<it.sc.fi<<' '<< it.sc.sc<<' '<< it.fi<<'\n';
         _union(it.sc.fi, it.sc.sc, it.fi);
     }
-    for (ll i = 1; i <= n; i++)
-    {
-        for (auto it : ans[i])
-        {
-            cout << i << ' ' << it.fi << ' ' << it.sc << '\n';
-        }
-    }
+    // for (ll i = 1; i <= n; i++)
+    // {
+    //     for (auto it : ans[i])
+    //     {
+    //         cout << i << ' ' << it.fi << ' ' << it.sc << '\n';
+    //     }
+    // }
 }
 //------------------------------------------------------------------------------------------
 int main()

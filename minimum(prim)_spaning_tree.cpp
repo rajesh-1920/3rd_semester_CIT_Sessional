@@ -55,7 +55,7 @@ inline ll moddiv(ll A, ll B, ll M)
     return _normal(modmul(A, (binexpo(B, M - 2, M)), M), M);
 }
 //-----------------------------------------------------------------------------------------*/
-//----------------------------(definition section)-------------------------------------------
+//----------------------------(definition section)------------------------------------------
 #define f(i, a, b) for (ll i = a; i < b; i++)
 #define scv(v, n) f(i, 0, n) cin >> (v[i]);
 #define dbg(x) cout << #x << " = " << x << '\n'
@@ -79,7 +79,7 @@ inline ll moddiv(ll A, ll B, ll M)
 #define MOD 1000000007
 #define N 200009
 //------------------------------------------------------------------------------------------
-vector<pair<ll, ll>> ans[N];
+vector<pair<ll, ll>> g[N], ans[N];
 ll par[N], sz[N];
 
 void init(ll a)
@@ -95,17 +95,42 @@ ll parent(ll a)
 }
 void _union(ll a, ll b, ll w)
 {
-    if (par[a] != b && par[b] != a)
+    ll pa = parent(a);
+    ll pb = parent(b);
+    if (sz[a] < sz[b])
+        swap(a, b);
+    if (pa != pb)
     {
-        ll pa = parent(a);
-        ll pb = parent(b);
-        if (sz[pa] < sz[pb])
-            swap(pa, pb);
-        if (pa != pb)
+        par[b] = a;
+        sz[a] += sz[b];
+        // ans[a].ppb(b, w);
+        cout << a << ' ' << b << ' ' << w << '\n';
+    }
+}
+
+void BFS(ll root)
+{
+    multiset<pair<ll, pair<ll, ll>>> st;
+    st.insert({0, {root, -1}});
+    set<pair<ll, ll>> is_al;
+
+    while (!st.empty())
+    {
+        auto it = st.begin();
+        ll nd = (*it).sc.fi;
+        ll pa = (*it).sc.sc;
+        ll wt = (*it).fi;
+        if (pa != -1)
+            _union(pa, nd, wt);
+        st.erase(it);
+
+        for (auto ii : g[nd])
         {
-            par[pb] = pa;
-            sz[pa] += sz[pb];
-            ans[a].ppb(b, w);
+            if (is_al.find({nd, ii.fi}) != is_al.end() || is_al.find({ii.fi, nd}) != is_al.end())
+                continue;
+            is_al.insert({nd, ii.fi});
+            is_al.insert({ii.fi, nd});
+            st.insert({ii.sc, {ii.fi, nd}});
         }
     }
 }
@@ -114,28 +139,21 @@ void solve(void)
 {
     ll n, m;
     cin >> n >> m;
-    multiset<pair<ll, pair<ll, ll>>> st;
     while (m--)
     {
         ll x, y, w;
         cin >> x >> y >> w;
-        st.insert({w, {x, y}});
+        g[x].ppb(y, w);
+        g[y].ppb(x, w);
     }
     for (ll i = 1; i <= n; i++)
         init(i);
-
-    for (auto it : st)
-    {
-        //cout<<it.sc.fi<<' '<< it.sc.sc<<' '<< it.fi<<'\n';
-        _union(it.sc.fi, it.sc.sc, it.fi);
-    }
-    for (ll i = 1; i <= n; i++)
-    {
-        for (auto it : ans[i])
-        {
-            cout << i << ' ' << it.fi << ' ' << it.sc << '\n';
-        }
-    }
+    BFS(1);
+    // for (ll i = 1; i <= n; i++)
+    // {
+    //     for (auto it : ans[i])
+    //         cout << i << ' ' << it.fi << ' ' << it.sc << '\n';
+    // }
 }
 //------------------------------------------------------------------------------------------
 int main()
