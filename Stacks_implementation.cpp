@@ -18,14 +18,57 @@ typedef long long int ll;
 
 #define inf 90000000000000
 #define N 200009
-//------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+void PUSH(ll stk[], ll mx_stk, ll &top, ll val)
+{
+    if (top == mx_stk)
+    {
+        cout << "Overflow\n";
+        return;
+    }
+    top = top + 1;
+    stk[top] = val;
+}
+void pop(ll stk[], ll &top)
+{
+    if (top == 0)
+    {
+        cout << "Underflow\n";
+        return;
+    }
+    cout << "Popped value = " << stk[top] << '\n';
+    top = top - 1;
+}
+void traverse(ll stk[], ll top)
+{
+    if (top == 0)
+    {
+        cout << "Empty stack\n";
+        return;
+    }
+    while (top)
+    {
+        cout << stk[top] << ' ';
+        top--;
+    }
+    cout << '\n';
+}
+//-------------------------------------------------------------------------------------------
 void solve(void)
 {
     ll n;
     cin >> n;
-    vector<ll> v(n);
-    for (auto &it : v)
-        cin >> it;
+    ll max_stk = 5, top = 0;
+    ll stk[max_stk + 1];
+    f(i, 0, n)
+    {
+        ll x;
+        cin >> x;
+        PUSH(stk, max_stk, top, x);
+    }
+    traverse(stk, top);
+    pop(stk, top);
+    traverse(stk, top);
 }
 //------------------------------------------------------------------------------------------
 int main()
@@ -42,7 +85,3 @@ int main()
     }
     return 0;
 }
-/*
-freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-*/
