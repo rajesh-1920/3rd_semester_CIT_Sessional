@@ -65,6 +65,22 @@ bool search(node *head, ll val)
     }
     return false;
 }
+ll search_position(node *head, ll val)
+{
+    if (!search(head, val))
+    {
+        cout << "The value is not present\n";
+        return -1;
+    }
+    ll pos = 0;
+    while (head != NULL)
+    {
+        pos++;
+        if (head->data == val)
+            return pos;
+        head = head->next;
+    }
+}
 //------------------------------------------------------------------------------------------
 //------------inseartion--------------------------------------------------------------------
 void insert_at_begin(node *&head, ll val)
@@ -139,9 +155,7 @@ ll delete_at_end(node *&head)
     }
     node *temp = head;
     while (temp->next->next != NULL)
-    {
         temp = temp->next;
-    }
     node *to_delete = temp->next;
     temp->next = temp->next->next;
     ll val = to_delete->data;
@@ -203,15 +217,16 @@ void solve(void)
         cin >> x;
         insert_at_end(head, x);
     }
-    insert_at_begin(head, 10);
-    insert_at_position(head, 15, 4);
-    cout << search(head, 3) << '\n';
+    // insert_at_begin(head, 10);
+    // insert_at_position(head, 15, 4);
+    // cout << search(head, 3) << '\n';
     traverse(head);
-    cout << delete_at_begin(head) << '\n';
-    cout << delete_at_end(head) << '\n';
-    cout << delete_by_value(head, 6) << '\n';
-    cout << delete_by_pos(head, 6) << '\n';
-    traverse(head);
+    // cout << delete_at_begin(head) << '\n';
+    // cout << delete_at_end(head) << '\n';
+    // cout << delete_by_value(head, 6) << '\n';
+    // cout << delete_by_pos(head, 6) << '\n';
+    // traverse(head);
+    cout << search_position(head, 6);
 }
 //------------------------------------------------------------------------------------------
 int main()
