@@ -43,10 +43,7 @@ void solve(void)
         {
             ans[i][j] = 0;
             for (ll k = 0; k < c1; k++)
-            {
                 ans[i][j] += a1[i][k] * a2[k][j];
-                //dbg(a2[k][j]);
-            }
         }
     for (ll i = 0; i < r1; i++)
     {
