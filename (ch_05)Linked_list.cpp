@@ -1,6 +1,6 @@
 // Author:  Rajesh Biswas
 // CF    :  rajesh19
-// Date  :  31.10.2024
+// Date  :  02.11.2024
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -41,7 +41,7 @@ public:
     }
 };
 //--------------------traverse--------------------------------------------------------------
-void traverse(node *head)
+void traverse(node *head) // al-5.1
 {
     if (head == NULL)
     {
@@ -65,7 +65,7 @@ bool search(node *head, ll val)
     }
     return false;
 }
-ll search_position(node *head, ll val)
+ll search_position(node *head, ll val) // al-5.2
 {
     if (!search(head, val))
     {
@@ -83,7 +83,7 @@ ll search_position(node *head, ll val)
 }
 //------------------------------------------------------------------------------------------
 //------------inseartion--------------------------------------------------------------------
-void insert_at_begin(node *&head, ll val)
+void insert_at_begin(node *&head, ll val) // al-5.4
 {
     node *newnode = new node(val);
     newnode->next = head;
@@ -103,7 +103,7 @@ void insert_at_end(node *&head, ll val)
     newnode->next = temp->next;
     temp->next = newnode;
 }
-void insert_at_position(node *&head, ll val, ll pos)
+void insert_at_position(node *&head, ll val, ll pos) // al-5.5
 {
     if (pos < 1)
     {
@@ -133,7 +133,7 @@ void insert_at_position(node *&head, ll val, ll pos)
 }
 //------------------------------------------------------------------------------------------
 //------------------Delation----------------------------------------------------------------
-ll delete_at_begin(node *&head)
+ll delete_at_begin(node *&head) // al-5.8
 {
     if (head == NULL)
     {
@@ -162,7 +162,7 @@ ll delete_at_end(node *&head)
     delete to_delete;
     return val;
 }
-ll delete_by_value(node *&head, ll val)
+ll delete_by_value(node *&head, ll val) // al-5.10
 {
     bool is_present = search(head, val);
     if (!is_present)
