@@ -44,8 +44,9 @@ void merge_sort(ll l, ll r)
 {
     if (l == r)
         return;
-    merge(l, (l + r) / 2);
-    merge((l + r) / 2 + 1, r);
+    merge_sort(l, (l + r) / 2);
+    merge_sort((l + r) / 2 + 1, r);
+    merge(l, r);
 }
 void solve(void)
 {
