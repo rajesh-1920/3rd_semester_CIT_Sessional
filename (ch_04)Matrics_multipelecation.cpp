@@ -22,12 +22,16 @@ typedef long long int ll;
 void solve(void)
 {
     ll r1, c1, r2, c2;
+    printf("Enter the row and column for first matrics : ");
     cin >> r1 >> c1;
+    printf("Enter the value for first matrics :\n");
     ll a1[r1][c1];
     for (ll i = 0; i < r1; i++)
         for (ll j = 0; j < c1; j++)
             cin >> a1[i][j];
+    printf("Enter the row and column for second matrics : ");
     cin >> r2 >> c2;
+    printf("Enter the values for second matrics :\n");
     ll a2[r2][c2];
     for (ll i = 0; i < r2; i++)
         for (ll j = 0; j < c2; j++)
@@ -37,6 +41,7 @@ void solve(void)
         cout << "Invalid dimenssion\n";
         return;
     }
+    printf("The result matrics is :\n");
     ll ans[r1][c2];
     for (ll i = 0; i < r1; i++)
         for (ll j = 0; j < c2; j++)
@@ -56,8 +61,8 @@ void solve(void)
 int main()
 {
     // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    /*ios_base::sync_with_stdio(false);
+    cin.tie(NULL);*/
     int test = 1, T;
     // cin >> test;
     for (T = 1; T <= test; T++)

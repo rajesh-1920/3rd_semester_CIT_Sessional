@@ -242,40 +242,96 @@ ll delete_by_pos(node *&head, ll pos, node *&avail)
 void solve(void)
 {
     ll n;
-    cin >> n;
     node *head = NULL;
     node *avail = NULL;
     for (ll i = 0; i < 10; i++)
         add_avail(avail);
-    cout << "avail list = ";
-    traverse(avail);
-    
+    cout<<"Enter the size of your list : ";
+    cin >> n;
+    cout<<"Enter the values of your list : ";
     for (ll i = 0; i < n; i++)
     {
         ll x;
         cin >> x;
         insert_at_end(head, x, avail);
     }
-    cout << "list = ";
-    traverse(head);
-    cout << "avail list = ";
-    traverse(avail);
-    // insert_at_begin(head, 10);
-    // insert_at_position(head, 15, 4);
-    // cout << search(head, 3) << '\n';
-    // cout << delete_at_begin(head) << '\n';
-    // cout << delete_at_end(head) << '\n';
-    // cout << delete_by_value(head, 6) << '\n';
-    // cout << delete_by_pos(head, 6) << '\n';
-    // traverse(head);
-    cout << "position = " << search_position(head, 6) << '\n';
+    while(true)
+    {
+        cout << "What you want??\n 1->traverse, 2->insert, 3->delete, 4->search, -1->to_end : ";
+        ll ch;
+        cin>>ch;
+        if(ch==1)
+        {
+            cout<<"Your list = ";
+            traverse(head);
+            cout<<"Avail list = ";
+            traverse(avail);
+        }
+        if(ch==-1)
+        {
+            cout<<"Thank you\n";
+            break;
+        }
+        if(ch==2)
+        {
+            cout<<"Where you want to insert?\n 1->begin, 2->end, 3->given_position : ";
+            ll x,val;
+            cin>>x;
+            cout<<"Enter the value : ";
+            cin>>val;
+            if(x==1)
+                insert_at_begin(head, val,avail);
+            if(x==2)
+                insert_at_end(head,val,avail);
+            if(x==3)
+            {
+                cout<<"Enter the position : ";
+                ll pos;
+                cin>>pos;
+                insert_at_position(head,val,pos,avail);
+            }
+        }
+        if(ch==3)
+        {
+            cout<<"Where you want to delete?\n 1->begin, 2->end, 3->given_position, 4->given_value : ";
+            ll x,val;
+            cin>>x;
+            if(x==1)
+                ll t=delete_at_begin(head,avail);
+            if(x==2)
+                ll t=delete_at_end(head,avail);
+            if(x==3)
+            {
+                cout<<"Enter the position : ";
+                ll pos;
+                cin>>pos;
+                delete_by_pos(head, pos,avail);
+            }
+            if(x==4)
+            {
+                cout<<"Enter the value : ";
+                ll val;
+                cin>>val;
+                delete_by_value(head, val,avail);
+            }
+        }
+        if(ch==4)
+        {
+            cout<<"Enter the value : ";
+            ll val;
+            cin>>val;
+            ll pos=search_position(head, val);
+            if(pos!=-1)
+                cout<<"Position of the value is = "<<pos<<'\n';
+        }
+    }
 }
 //------------------------------------------------------------------------------------------
 int main()
 {
     // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    /*ios_base::sync_with_stdio(false);
+    cin.tie(NULL);*/
     int test = 1, T;
     // cin >> test;
     for (T = 1; T <= test; T++)

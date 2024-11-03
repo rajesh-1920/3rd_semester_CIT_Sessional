@@ -101,6 +101,7 @@ string replace_every_occur(string s, string p, string q) // al-3.2
         s = temp;
     }
 }
+//------------------------------------------------------------------------------------------
 void solve(void)
 {
     string s;

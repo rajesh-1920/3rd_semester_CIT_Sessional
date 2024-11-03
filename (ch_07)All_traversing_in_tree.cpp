@@ -112,13 +112,17 @@ void solve(void)
     // postorder(root);
     // preorder(root);
     node *root = NULL;
+    cout<<"Enter the number of nodes : ";
     ll n;
     cin >> n;
+    cout<<"Enter the preorder arary : ";
     ll pre[n + 1], in[n + 1], post[n + 1];
     for (ll i = 1; i <= n; i++)
         cin >> pre[i];
+    cout<<"Enter the inorder arary : ";
     for (ll i = 1; i <= n; i++)
         cin >> in[i];
+    cout<<"Enter the postorder arary : ";
     for (ll i = 1; i <= n; i++)
         cin >> post[i];
 

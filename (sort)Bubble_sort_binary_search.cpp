@@ -47,8 +47,10 @@ ll binary_search_v(vector<ll> v, ll value)
 void solve(void)
 {
     ll n;
+    cout<<"Enter The size of your array : ";
     cin >> n;
     vector<ll> v(n);
+    cout<<"Enter The value of your array : ";
     for (auto &it : v)
         cin >> it;
     for (ll i = 0; i < n; i++)
@@ -59,23 +61,29 @@ void solve(void)
                 swap(v[j], v[j + 1]);
         }
     }
-    for (auto it : v)
-        cout << it << ' ';
-    ll is = binary_search_v(v, 6);
-    if (is == -1)
-        cout << "Notfound\n";
-    else
+    while(true)
     {
-        cout << "Founded\n";
-        cout << "Pos = " << is + 1 << '\n';
+        cout<<"Enter The value (-1->to end) you want to search: ";
+        ll val;
+        cin>>val;
+        if(val==-1)
+            break;
+        ll is = binary_search_v(v, val);
+        if (is == -1)
+            cout << "Notfound\n";
+        else
+        {
+            cout << "Founded\n";
+            cout << "Pos = " << is + 1 << '\n';
+        }
     }
 }
 //------------------------------------------------------------------------------------------
 int main()
 {
     // cout << fixed << showpoint << setprecision(10);
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    /*ios_base::sync_with_stdio(false);
+    cin.tie(NULL);*/
     int test = 1, T;
     // cin >> test;
     for (T = 1; T <= test; T++)
