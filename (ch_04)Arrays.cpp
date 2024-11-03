@@ -72,6 +72,16 @@ ll delete_at_position(ll a[], ll &sz, ll pos) // al-4.2
     sz--;
     return val;
 }
+ll linear_search(ll a[], ll sz, ll val)
+{
+    for (ll i = 1; i <= sz; i++)
+    {
+        if (a[i] == val)
+            return i;
+    }
+    cout << "Not found ";
+    return -1;
+}
 //------------------------------------------------------------------------------------------
 void solve(void)
 {
@@ -90,6 +100,9 @@ void solve(void)
     if (del != -1)
         cout << "deleted value = " << del << '\n';
     traverse(a, sz);
+    ll pos = linear_search(a, sz, 7);
+    if (pos != -1)
+        cout << "Position = " << pos << '\n';
 }
 //------------------------------------------------------------------------------------------
 int main()

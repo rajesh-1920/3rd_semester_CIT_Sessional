@@ -82,16 +82,42 @@ ll search_position(node *head, ll val) // al-5.2
     }
 }
 //------------------------------------------------------------------------------------------
+//-------------------------(avail)----------------------------------------------------------
+void add_avail(node *&head)
+{
+    node *newavail = new node(-1);
+    newavail->next = head;
+    head = newavail;
+}
+ll delete_avail(node *&head)
+{
+    if (head == NULL)
+    {
+        cout << "No space available\n";
+        return -1;
+    }
+    node *to_delete = head;
+    head = head->next;
+    delete to_delete;
+    return 1;
+}
+//------------------------------------------------------------------------------------------
 //------------inseartion--------------------------------------------------------------------
-void insert_at_begin(node *&head, ll val) // al-5.4
+void insert_at_begin(node *&head, ll val, node *&avail) // al-5.4
 {
     node *newnode = new node(val);
+    ll t = delete_avail(avail);
+    if (t == -1)
+        return;
     newnode->next = head;
     head = newnode;
 }
-void insert_at_end(node *&head, ll val)
+void insert_at_end(node *&head, ll val, node *&avail)
 {
     node *newnode = new node(val);
+    ll t = delete_avail(avail);
+    if (t == -1)
+        return;
     if (head == NULL)
     {
         head = newnode;
@@ -103,16 +129,19 @@ void insert_at_end(node *&head, ll val)
     newnode->next = temp->next;
     temp->next = newnode;
 }
-void insert_at_position(node *&head, ll val, ll pos) // al-5.5
+void insert_at_position(node *&head, ll val, ll pos, node *&avail) // al-5.5
 {
     if (pos < 1)
     {
         cout << "Invalid position\n";
         return;
     }
+    ll t = delete_avail(avail);
+    if (t == -1)
+        return;
     if (pos == 1)
     {
-        insert_at_begin(head, val);
+        insert_at_begin(head, val, avail);
         return;
     }
     node *newnode = new node(val);
@@ -133,7 +162,7 @@ void insert_at_position(node *&head, ll val, ll pos) // al-5.5
 }
 //------------------------------------------------------------------------------------------
 //------------------Delation----------------------------------------------------------------
-ll delete_at_begin(node *&head) // al-5.8
+ll delete_at_begin(node *&head, node *&avail) // al-5.8
 {
     if (head == NULL)
     {
@@ -144,9 +173,10 @@ ll delete_at_begin(node *&head) // al-5.8
     head = head->next;
     ll val = todelete->data;
     delete todelete;
+    add_avail(avail);
     return val;
 }
-ll delete_at_end(node *&head)
+ll delete_at_end(node *&head, node *&avail)
 {
     if (head == NULL)
     {
@@ -160,9 +190,10 @@ ll delete_at_end(node *&head)
     temp->next = temp->next->next;
     ll val = to_delete->data;
     delete to_delete;
+    add_avail(avail);
     return val;
 }
-ll delete_by_value(node *&head, ll val) // al-5.10
+ll delete_by_value(node *&head, ll val, node *&avail) // al-5.10
 {
     bool is_present = search(head, val);
     if (!is_present)
@@ -176,9 +207,10 @@ ll delete_by_value(node *&head, ll val) // al-5.10
     node *to_delete = temp->next;
     temp->next = temp->next->next;
     delete to_delete;
+    add_avail(avail);
     return val;
 }
-ll delete_by_pos(node *&head, ll pos)
+ll delete_by_pos(node *&head, ll pos, node *&avail)
 {
     if (head == NULL)
     {
@@ -186,7 +218,7 @@ ll delete_by_pos(node *&head, ll pos)
         return -1;
     }
     if (pos == 1)
-        return delete_at_begin(head);
+        return delete_at_begin(head, avail);
     node *temp = head;
     ll cnt = 1;
     while (temp->next != NULL && cnt < pos - 1)
@@ -203,6 +235,7 @@ ll delete_by_pos(node *&head, ll pos)
     temp->next = temp->next->next;
     ll val = to_delete->data;
     delete to_delete;
+    add_avail(avail);
     return val;
 }
 //------------------------------------------------------------------------------------------
@@ -211,22 +244,31 @@ void solve(void)
     ll n;
     cin >> n;
     node *head = NULL;
-    f(i, 0, n)
+    node *avail = NULL;
+    for (ll i = 0; i < 10; i++)
+        add_avail(avail);
+    cout << "avail list = ";
+    traverse(avail);
+    
+    for (ll i = 0; i < n; i++)
     {
         ll x;
         cin >> x;
-        insert_at_end(head, x);
+        insert_at_end(head, x, avail);
     }
+    cout << "list = ";
+    traverse(head);
+    cout << "avail list = ";
+    traverse(avail);
     // insert_at_begin(head, 10);
     // insert_at_position(head, 15, 4);
     // cout << search(head, 3) << '\n';
-    traverse(head);
     // cout << delete_at_begin(head) << '\n';
     // cout << delete_at_end(head) << '\n';
     // cout << delete_by_value(head, 6) << '\n';
     // cout << delete_by_pos(head, 6) << '\n';
     // traverse(head);
-    cout << search_position(head, 6);
+    cout << "position = " << search_position(head, 6) << '\n';
 }
 //------------------------------------------------------------------------------------------
 int main()
