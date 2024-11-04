@@ -35,6 +35,31 @@ void dfs(ll n)
     vis[n] = 2;
     topo.push_back(n);
 }
+// Khan's algorithm............
+vector<ll> topo_sort(ll n)
+{
+    vector<ll> indeg(N, 0), topo_s;
+    queue<ll> q;
+    for (ll i = 1; i <= n; i++)
+        for (auto it : g[i])
+            indeg[it]++;
+    for (ll i = 1; i <= n; i++)
+        if (indeg[i] == 0)
+            q.push(i);
+    while (!q.empty())
+    {
+        ll t = q.front();
+        topo_s.push_back(t);
+        q.pop();
+        for (auto it : g[t])
+        {
+            indeg[it]--;
+            if (!indeg[it])
+                q.push(it);
+        }
+    }
+    return topo_s;
+}
 void solve(void)
 {
     ll n, m;
@@ -45,7 +70,7 @@ void solve(void)
         cin >> x >> y;
         g[x].push_back(y);
     }
-    cycle = 0;
+    /*cycle = 0;
     for (ll i = 1; i <= n; i++)
     {
         if (vis[i] == 0)
@@ -53,7 +78,17 @@ void solve(void)
     }
     reverse(all(topo));
     if (cycle == 1)
-        cout << "Cycle exist .";
+        cout << "Cycle exist . topological sort not possible\n";
+    else
+    {
+        cout << "The topological sortest list : ";
+        for (auto it : topo)
+            cout << it << ' ';
+    }
+    */
+    topo = topo_sort(n);
+    if (topo.size() != n)
+        cout << "Topological sort not possible\n";
     else
     {
         cout << "The topological sortest list : ";
